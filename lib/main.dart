@@ -24,14 +24,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // SharedPreferences에서 온보딩 완료 여부 조회
     // isOnboarded에 해당하는 값어서 null을 반환하는 경우 false 할당
-    bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
+    /// splash_page.dart로 넘김.
+    // bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          textTheme: GoogleFonts.getTextTheme('Jua'),
-        ),
-        home: Splash() //isOnboarded ? HomePage() : OnboardingPage(),
-        );
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.getTextTheme('Jua'),
+      ),
+      home: Splash(),
+
+      /// splash_page.dart로 넘김.
+      //isOnboarded ? HomePage() : OnboardingPage(),
+    );
   }
 }
 

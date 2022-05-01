@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'main.dart';
+import 'onboarding_page.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
   @override
   void initState() {
     super.initState();
@@ -21,8 +23,8 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                HomePage())); //spalsh page finish -> onboarding change
+          builder: (context) => isOnboarded ? HomePage() : OnboardingPage(),
+        )); //spalsh page finish -> onboarding change
   }
 
   @override
