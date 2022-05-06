@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:kkulkkeog/main.dart';
+import 'package:kkulkkeog/mainpage.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -11,91 +13,380 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  int pageIndex = 0;
+  final PageController _pageController = PageController(initialPage: 0);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: const Color(0xff3F69FF),
-      body: Container(
-        padding: const EdgeInsets.only(bottom: 60),
+      body: SafeArea(
         child: PageView(
+          onPageChanged: (int index) {
+            setState(() {
+              pageIndex = index;
+            });
+          },
+          controller: _pageController,
           children: [
+            //1page
             Container(
-              child: Stack(
-                children: [
-                  Container(
-                    child: Image.asset('assets/onboarding1/bg.jpg'),
-                  ),
-                  // Positioned(
-                  //   bottom: 200,
-                  //   right: 100,
-                  //   child: Image.asset(
-                  //     'assets/onboarding1/bottle.png',
-                  //     height: 300,
-                  //   ),
-                  // ),
-                  Container(
-                    child: Center(
-                      child: Column(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Stack(
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.1,
+                          Image.asset('assets/onboarding1/bg.jpg'), //배경사진
+                          Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.15,
+                                ),
+                                Image.asset(
+                                  'assets/onboarding1/img.png', //물통 이미지
+                                  height: 290,
+                                ),
+                              ],
+                            ),
                           ),
-                          Image.asset(
-                            'assets/onboarding1/bottle.png',
-                            height: 300,
+                          SafeArea(
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.6,
+                                  ),
+                                  Image.asset(
+                                    'assets/onboarding1/title.jpg', //타이틀
+                                    width: 200,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SafeArea(
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.74,
+                                  ),
+                                  Image.asset(
+                                    'assets/onboarding1/commend.jpg', // 안내
+                                    width: 200,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                              ),
+                              //상단 indicatordot
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: SmoothPageIndicator(
+                                      controller: _pageController,
+                                      count: 3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.81,
+                              ),
+                              //하단 다음진행 버튼
+                              Container(
+                                color: const Color(0xff3F69FF),
+                                height: 60,
+                                width: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xff3F69FF),
+                                        primary: Colors.white,
+                                        textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                        //하단 버튼 터치영역
+                                        minimumSize: Size(370, 60),
+                                      ),
+                                      child: const Text('다음'), //다음페이지로
+                                      onPressed: () {
+                                        _pageController.nextPage(
+                                            duration:
+                                                Duration(milliseconds: 500),
+                                            curve: Curves.decelerate);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Container(
-                    child: SafeArea(
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.6,
-                            ),
-                            Image.asset(
-                              'assets/onboarding1/title.jpg',
-                              width: 200,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: SafeArea(
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.74,
-                            ),
-                            Image.asset(
-                              'assets/onboarding1/commend.jpg',
-                              width: 200,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                      width: double.infinity,
-                      child: Column(
+                  ],
+                ),
+              ),
+            ),
+            //2page
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Stack(
                         children: [
-                          ConstrainedBox(
-                              constraints: BoxConstraints.expand(),
-                              child: TextButton(
-                                  onPressed: null,
-                                  //padding: EdgeInsets.all(0.0),
+                          Image.asset('assets/onboarding1/bg.jpg'), //배경이미지
+                          Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                ),
+                                Positioned(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
                                   child: Image.asset(
-                                      'assets/onboarding1/commend.jpg'))),
+                                    'assets/onboarding1/img2.png', //중단이미지
+                                    height: MediaQuery.of(context).size.height *
+                                        0.39,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SafeArea(
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.61,
+                                  ),
+                                  Image.asset(
+                                    'assets/onboarding1/title2.jpg', //타이틀
+                                    width: 250,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SafeArea(
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.74,
+                                  ),
+                                  Image.asset(
+                                    'assets/onboarding1/commend2.jpg', //안내
+                                    width: 230,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                              ),
+                              //상단 indicatordot
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: SmoothPageIndicator(
+                                      controller: _pageController,
+                                      count: 3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.81,
+                              ),
+                              //하단 다음진행 버튼
+                              Container(
+                                color: const Color(0xff3F69FF),
+                                height: 60,
+                                width: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xff3F69FF),
+                                          primary: Colors.white,
+                                          textStyle: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                          minimumSize: Size(370, 60),
+                                        ),
+                                        child: const Text('다음'),
+                                        onPressed: () {
+                                          _pageController.nextPage(
+                                              duration:
+                                                  Duration(milliseconds: 500),
+                                              curve: Curves.decelerate);
+                                        }),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
-                      ))
-                ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            //3page
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Stack(
+                        children: [
+                          Image.asset('assets/onboarding1/bg.jpg'),
+                          Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                ),
+                                Image.asset(
+                                  'assets/onboarding1/img3.png',
+                                  height: 230,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SafeArea(
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.6,
+                                  ),
+                                  Image.asset(
+                                    'assets/onboarding1/title3.jpg',
+                                    width: 260,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SafeArea(
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.74,
+                                  ),
+                                  Image.asset(
+                                    'assets/onboarding1/commend3.jpg',
+                                    width: 240,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: SmoothPageIndicator(
+                                      controller: _pageController,
+                                      count: 3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.81,
+                              ),
+                              Container(
+                                color: const Color(0xff3F69FF),
+                                height: 60,
+                                width: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xff3F69FF),
+                                          primary: Colors.white,
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          minimumSize: Size(370, 60),
+                                        ),
+                                        child: const Text('시작하기'),
+                                        onPressed: () {
+                                          // Done 클릭시 isOnboarded = true로 저장
+                                          prefs.setBool("isOnboarded", true);
+
+                                          // Done 클릭시 페이지 이동
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MainPage()),
+                                          );
+                                        }),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -104,64 +395,25 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 }
-      //Stack(
-      //   children: [
-      //     IntroductionScreen(
-      //       pages: [
-      //         // 첫 번째 페이지
-      //         PageViewModel(
-      //           title: "빠른 개발",
-      //           body: "Flutter의 hot reload는 쉽고 UI 빌드를 도와줍니다.",
-      //           image: Padding(
-      //             padding: EdgeInsets.all(32),
-      //             child: Image.network(
-      //                 'https://user-images.githubusercontent.com/26322627/143761841-ba5c8fa6-af01-4740-81b8-b8ff23d40253.png'),
-      //           ),
-      //           decoration: PageDecoration(
-      //             titleTextStyle: TextStyle(
-      //               color: Colors.blueAccent,
-      //               fontSize: 24,
-      //               fontWeight: FontWeight.bold,
-      //             ),
-      //             bodyTextStyle: TextStyle(
-      //               color: Colors.black,
-      //               fontSize: 18,
-      //             ),
-      //           ),
-      //         ),
-      //         // 두 번째 페이지
-      //         PageViewModel(
-      //           title: "표현력 있고 유연한 UI",
-      //           body: "Flutter에 내장된 아름다운 위젯들로 사용자를 기쁘게 하세요.",
-      //           image: Image.network(
-      //               'https://user-images.githubusercontent.com/26322627/143762620-8cc627ce-62b5-426b-bc81-a8f578e8549c.png'),
-      //           decoration: PageDecoration(
-      //             titleTextStyle: TextStyle(
-      //               color: Colors.blueAccent,
-      //               fontSize: 24,
-      //               fontWeight: FontWeight.bold,
-      //             ),
-      //             bodyTextStyle: TextStyle(
-      //               color: Colors.black,
-      //               fontSize: 18,
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //       next: Text("Next", style: TextStyle(fontWeight: FontWeight.w600)),
-      //       done: Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
-      //       onDone: () {
-      //         // Done 클릭시 isOnboarded = true로 저장
-      //         prefs.setBool("isOnboarded", true);
 
-      //         // Done 클릭시 페이지 이동
-      //         Navigator.pushReplacement(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => HomePage()),
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
- //   );
-  
+//       next: Text("Next", style: TextStyle(fontWeight: FontWeight.w600)),
+//       done: Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
+//       onDone: () {
+//         // Done 클릭시 isOnboarded = true로 저장
+//         prefs.setBool("isOnboarded", true);
+
+//         // Done 클릭시 페이지 이동
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => HomePage()),
+//         );
+//       },
+//     ),
+//   ],
+// ),
+//   );
+
+// Image.asset('assets/onboarding1/bg.jpg'),
+// Image.asset('assets/onboarding1/bottle.png',height: 300),
+// Image.asset('assets/onboarding1/title.jpg', width: 200),
+// Image.asset('assets/onboarding1/commend.jpg',width: 200),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:kkulkkeog/mainpage.dart';
 import 'main.dart';
 import 'onboarding_page.dart';
 
@@ -23,31 +23,39 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => isOnboarded ? HomePage() : OnboardingPage(),
+          builder: (context) => isOnboarded ? MainPage() : OnboardingPage(),
         )); //spalsh page finish -> onboarding change
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            color: const Color(0xff3F69FF),
-            child: Image.asset('assets/splash/visual.png'),
-          ),
-          Positioned(
-            bottom: 330,
-            right: 60,
-            child: Center(
-              child: Container(
-                width: 250,
-                height: 250,
-                child: Image.asset('assets/splash/LOGO.png'),
-              ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  color: const Color(0xff3F69FF),
+                  child: Image.asset('assets/splash/visual.png'),
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.10,
+                      ),
+                      SizedBox(
+                        height: 250,
+                        child: Image.asset('assets/splash/LOGO.png'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

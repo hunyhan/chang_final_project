@@ -38,6 +38,9 @@ dependencies:
   google_fonts: ^2.3.2
   shared_preferences: ^2.0.13
   flutter_native_splash: ^2.1.6
+  page_view_indicators: ^2.0.0
+  smooth_page_indicator: ^1.0.0+2
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -67,8 +70,16 @@ flutter:
     - assets/splash/visual.png
     - assets/onboarding1/bg.jpg
     - assets/onboarding1/commend.jpg
+    - assets/onboarding1/commend2.jpg
+    - assets/onboarding1/commend3.jpg
     - assets/onboarding1/title.jpg
-    - assets/onboarding1/bottle.png
+    - assets/onboarding1/title2.jpg
+    - assets/onboarding1/title3.jpg
+    - assets/onboarding1/img.png
+    - assets/onboarding1/img2.png
+    - assets/onboarding1/img3.png
+    - assets/icons/
+    - assets/mainimages/water1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
