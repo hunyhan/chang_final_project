@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'main.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -122,6 +124,13 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             children: [
               Row(
                 children: [
+                  IconButton(
+                    onPressed: () {
+                      // SharedPreferences에 저장된 모든 데이터 삭제
+                      prefs.clear();
+                    },
+                    icon: Icon(Icons.delete),
+                  ),
                   Spacer(),
                   IconButton(
                     onPressed: () {},
@@ -240,16 +249,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     SizedBox(
                       height: 50,
                       width: 280,
-                      child: Row(
-                        children: [
-                          TextField(
-                            decoration: InputDecoration(
-                                suffixIcon:
-                                    SvgPicture.asset('assets/icons/search.svg'),
-                                border: OutlineInputBorder(),
-                                labelText: '브랜드명을 검색해주세요.'),
-                          ),
-                        ],
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: '브랜드명을 검색해주세요.'),
                       ),
                     ),
                   ],
